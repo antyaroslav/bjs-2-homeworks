@@ -108,7 +108,7 @@ class Student {
   }
 
   addMark(mark, subject) {
-    if (mark < 1 || mark > 5) {
+    if (mark < 2 || mark > 5) {
       return;
     }
 
@@ -131,20 +131,16 @@ class Student {
 
   getAverage() {
     const subjects = Object.keys(this.marks);
-    let marksSum = 0;
-    let marksCount = 0;
 
     if (subjects.length === 0) {
       return 0;
     }
 
-    for (let i = 0; i < subjects.length; i += 1) {
-      const subjectMarks = this.marks[subjects[i]];
+    const averagesSum = subjects.reduce(
+      (sum, subject) => sum + this.getAverageBySubject(subject),
+      0
+    );
 
-      marksSum += subjectMarks.reduce((sum, mark) => sum + mark, 0);
-      marksCount += subjectMarks.length;
-    }
-
-    return marksSum / marksCount;
+    return averagesSum / subjects.length;
   }
 }
